@@ -35,8 +35,9 @@
 #include <errno.h>
 
 #define PACKAGE "mdns-repeater"
-#define MDNS_ADDR "224.0.0.251"
-#define MDNS_PORT 5353
+
+char *MDNS_ADDR =  "224.0.0.251";
+unsigned int MDNS_PORT = 5353;
 
 #ifndef PIDFILE
 #define PIDFILE "/var/run/" PACKAGE ".pid"
@@ -326,6 +327,7 @@ static void show_help(const char *progname) {
 					"	-b	blacklist subnet (eg. 192.168.1.1/24)\n"
 					"	-w	whitelist subnet (eg. 192.168.1.1/24)\n"
 					"	-p	specifies the pid file path (default: " PIDFILE ")\n"
+					"	-u	repeat UPNU messages rather MDNS\n"
 					"	-h	shows this help\n"
 					"\n"
 		);
@@ -386,10 +388,16 @@ static int parse_opts(int argc, char *argv[]) {
 	int help = 0;
 	struct subnet *ss;
 	char *msg;
-	while ((c = getopt(argc, argv, "hfp:b:w:")) != -1) {
+	while ((c = getopt(argc, argv, "hfup:b:w:")) != -1) {
 		switch (c) {
 			case 'h': help = 1; break;
 			case 'f': foreground = 1; break;
+			case 'u': 
+				  //UPNP
+				  MDNS_ADDR = "239.255.255.250";
+  				  MDNS_PORT = 1900;
+				  break;
+
 			case 'p':
 				if (optarg[0] != '/')
 					log_message(LOG_ERR, "pid file path must be absolute");
