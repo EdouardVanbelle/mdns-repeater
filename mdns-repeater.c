@@ -327,7 +327,7 @@ static void show_help(const char *progname) {
 					"	-b	blacklist subnet (eg. 192.168.1.1/24)\n"
 					"	-w	whitelist subnet (eg. 192.168.1.1/24)\n"
 					"	-p	specifies the pid file path (default: " PIDFILE ")\n"
-					"	-u	repeat UPNU messages rather MDNS\n"
+					"	-u	repeat UPNP messages rather MDNS\n"
 					"	-h	shows this help\n"
 					"\n"
 		);
